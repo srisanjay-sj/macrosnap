@@ -57,17 +57,17 @@ html, body, .stApp, [data-testid="stMarkdownContainer"], input, button, textarea
   background: var(--accent); animation: pulse 2s ease-in-out infinite;
 }
 .stApp .hero h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-size: 3.1rem !important; font-weight: 800 !important;
   line-height: 1.12 !important; letter-spacing: -0.02em;
-  color: #fff; margin: 1.3rem 0 1rem; padding: 0;
+  color: #FFFFFF !important; margin: 1.3rem 0 1rem; padding: 0;
 }
-.stApp .hero h1 span, .stApp h1.brand span { color: var(--accent); }
-.hero p { color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 34rem; margin: 0 auto; }
-
 .stApp h1.brand {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-size: 1.9rem !important; font-weight: 800 !important;
-  letter-spacing: -0.02em; color: #fff; margin: 0; padding: 0;
+  letter-spacing: -0.02em; color: #FFFFFF !important; margin: 0; padding: 0;
 }
+.stApp .hero .accent, .stApp h1.brand .accent { color: #7C83FF !important; }
 [data-testid="stCaptionContainer"] { color: var(--muted); }
 
 /* Form */
