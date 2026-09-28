@@ -187,3 +187,4 @@ if user_input:
     with st.spinner("Crunching the numbers..."):
         answer, _ = ask_gemini(parts)
     add_message("assistant", "text", answer)
+    st.rerun()
