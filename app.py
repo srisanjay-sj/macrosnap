@@ -8,6 +8,10 @@ import streamlit as st
 from twilio.rest import Client as TwilioClient
 
 from prompts import SYSTEM_PROMPT, WELCOME_MESSAGE_TEMPLATE, SUMMARY_REQUEST_PROMPT
+from style import CSS
+
+st.set_page_config(page_title="MacroSnap", page_icon="🥗")
+st.markdown(CSS, unsafe_allow_html=True)
 
 GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 TWILIO_ACCOUNT_SID = st.secrets["TWILIO_ACCOUNT_SID"]
@@ -54,7 +58,8 @@ def send_whatsapp(to_number, user_name, summary):
 
 
 def render_message(message):
-    with st.chat_message(message["role"]):
+    avatar = "🥗" if message["role"] == "assistant" else "🙂"
+    with st.chat_message(message["role"], avatar=avatar):
         if message["kind"] == "text":
             st.write(message["content"])
         elif message["kind"] == "image":
@@ -88,17 +93,25 @@ def ask_gemini(parts):
 
 # ---------- Onboarding ----------
 if "onboarded" not in st.session_state:
-    st.title("🥗 MacroSnap")
-    st.caption("Snap it. Track it. Text yourself the results.")
+    st.markdown(
+        '<div class="hero">'
+        '<span class="pill">AI meal scanner</span>'
+        '<h1>Snap your meal. <span>Know your macros</span> in seconds.</h1>'
+        '<p>MacroSnap reads a photo or a description of what you ate, estimates '
+        'calories, protein, carbs and fat, and sends your day\'s summary to WhatsApp.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
     with st.form("onboarding_form"):
+
         name = st.text_input("Your name")
         whatsapp_number = st.text_input(
             "WhatsApp number (with country code)",
             placeholder="+91XXXXXXXXXX",
             help="This is the number MacroSnap will text your summary to.",
         )
-        submitted = st.form_submit_button("Let's go 🚀")
+        submitted = st.form_submit_button("Start tracking 🚀")
 
     if submitted:
         number = whatsapp_number.replace(" ", "")
@@ -122,7 +135,7 @@ if "onboarded" not in st.session_state:
 header_col, button_col = st.columns([5, 2], vertical_alignment="center")
 
 with header_col:
-    st.title("🥗 MacroSnap")
+        st.markdown('<h1 class="brand">Macro<span>Snap</span></h1>', unsafe_allow_html=True)
 
 with button_col:
     send_disabled = len(st.session_state.messages) <= 1
